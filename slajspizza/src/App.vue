@@ -1,9 +1,11 @@
 <script setup>
 import Header from "./components/Header.vue"
+import TheBanner from "./components/TheBanner.vue"
 </script>
 
 <template>
 <Header />
+<TheBanner />
 </template>
 
 <style>
@@ -12,3 +14,4 @@ body{
   padding: 0;
 }
 </style>
+
