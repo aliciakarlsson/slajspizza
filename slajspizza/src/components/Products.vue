@@ -1,30 +1,25 @@
 <script setup>
 import '../assets/main.css'
-import { ref } from 'vue'
 
-const products = ref([
-  {
-    id: 1,
-    name: 'Slice Pizza',
-    price: 9.99,
-    image: 'https://www.slicepizza.com/wp-content/uploads/2022/08/slice-pizza-logo-1.png',
-    description:
-      'Slice Pizza is a pizza restaurant that offers a variety of pizzas, including vegetarian and gluten-free options. They also offer a selection of toppings and sauces to choose from.',
-  },
-  {
-    id: 2,
-    name: 'Slice Pizza 2',
-    price: 9.99,
-    image: 'https://www.slicepizza.com/wp-content/uploads/2022/08/slice-pizza-logo-1.png',
-    description:
-      'Slice Pizza is a pizza restaurant that offers a variety of pizzas, including vegetarian and gluten-free options. They also offer a selection of toppings and sauces to choose from.',
-  },
-])
+import { ref } from 'vue'
+const props = defineProps({
+  items: {
+    type: Array,
+    default: () => []
+  }
+})
+
+
+const products = ref(props.items)
+console.log("Produkterna i varje itterering", products)
+
+
 </script>
 
 <template>
+
   <div class="category">
-    <h2 class="title">Pizza</h2>
+    <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
     <ul class="product-list">
       <li v-for="product in products" :key="product.id" class="product-item">
         <div class="product-details">
@@ -38,7 +33,7 @@ const products = ref([
             <a href="https://www.slicepizza.com/" target="_blank">+</a>
           </div>
         </div>
-        <img class="product-image" :src="product.image" :alt="product.name" />
+        <img class="product-image" :src="product.imgUrl" :alt="product.name" />
       </li>
     </ul>
   </div>
@@ -55,11 +50,27 @@ const products = ref([
 
 .title {
   padding-left: 0.5rem;
+  background-color: rgb(255, 216, 216);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+
+
+.sticky-title {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgb(255, 216, 216);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 20px;
 }
 
 .category {
-  margin-top: 20px;
+
   font-family: 'Parkinsans';
+  padding: 1rem;
 }
 
 h1 {
