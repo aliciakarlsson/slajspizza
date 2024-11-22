@@ -15,7 +15,7 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    margin: 1rem;
 }
 
 .info{
