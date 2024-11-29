@@ -12,7 +12,11 @@ const props = defineProps({
 const products = ref(props.items)
 console.log("Produkterna i varje itterering", products)
 
+
+// State för modal
 const showProductInfo = ref(false)
+
+// Funktion för att visa/dölja modal
 const handleToggleProductInfoModal = () => {
   console.log("Modal togglas")
   showProductInfo.value = !showProductInfo.value;
