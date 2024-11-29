@@ -4,6 +4,7 @@ import TheBanner from './components/TheBanner.vue'
 import Map from "./components/Map.vue"
 import MenyComponent from './components/MenyComponent.vue';
 import Footer from "./components/Footer.vue"
+import OrderHistory from './components/OrderHistory.vue';
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import Footer from "./components/Footer.vue"
   <TheBanner />
   <MenyComponent />
   <Map />
+  <OrderHistory/>
   <Footer/>
 </template>
 
