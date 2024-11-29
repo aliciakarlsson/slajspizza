@@ -5,6 +5,7 @@ import TheBanner from './components/TheBanner.vue'
 import Map from './components/Map.vue'
 import MenyComponent from './components/MenyComponent.vue'
 import OrderView from './components/OrderView.vue'
+import OrderHistory from './components/OrderHistory.vue';
 import Footer from './components/Footer.vue'
 
 const showOrderView = ref(true)
@@ -20,7 +21,8 @@ const toggleOrderView = () => {
   <OrderView :showOrderView="showOrderView" />
   <MenyComponent />
   <Map />
-  <Footer />
+  <OrderHistory/>
+  <Footer/>
 </template>
 
 <style>
