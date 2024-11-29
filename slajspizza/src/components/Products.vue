@@ -9,10 +9,14 @@ const props = defineProps({
   }
 })
 
-
 const products = ref(props.items)
 console.log("Produkterna i varje itterering", products)
 
+const showProductInfo = ref(false)
+const handleToggleProductInfoModal = () => {
+  console.log("Modal togglas")
+  showProductInfo.value = !showProductInfo.value;
+}
 
 </script>
 
@@ -24,6 +28,10 @@ console.log("Produkterna i varje itterering", products)
       <li v-for="product in products" :key="product.id" class="product-item">
         <div class="product-details">
           <h3>{{ product.name }}</h3>
+
+          <button @click="handleToggleProductInfoModal"> klicka här för attt aktivera modal</button>
+          <br>modalstatus: {{ showProductInfo }}
+
           <p class="description">{{ product.description }}</p>
           <div class="price">
             <p>Price:</p>
