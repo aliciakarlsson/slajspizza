@@ -11,12 +11,13 @@ const getOrderHistory = () => {
     }
 }
 
-//Reorder 
+//Reorder
 const reorderItems = (order) =>{
     console.log(order);
     //Väntar på funktion lol
 }
 
+//Låtsasbeställning
 const placeOrder = () => {
     const newOrder = {
         orderNumber: 32649,
