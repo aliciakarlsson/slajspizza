@@ -34,7 +34,7 @@ const handleToggleProductInfoModal = () => {
 <template>
 
   <!-- visar modal -->
-  <ProductInfoModal v-if="showProductInfo" :activeProduct="activeProductToShow" />
+  <ProductInfoModal @close="showProductInfo = false" v-if="showProductInfo" :activeProduct="activeProductToShow" />
 
   <div class="category">
     <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
@@ -63,7 +63,7 @@ const handleToggleProductInfoModal = () => {
   </div>
 </template>
 
-<style scoped>
+<style>
 .menu {
   width: 80%;
   margin: 0 auto;

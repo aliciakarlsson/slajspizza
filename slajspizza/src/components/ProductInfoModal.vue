@@ -1,79 +1,33 @@
-<!-- <script setup>
-
-
-
-/**
- * Funktion: openDialog
- * - Använder .showModal() för att öppna dialogen.
- * - Kontroll om dialogen redan är öppen förhindrar fel.
- */
-const openDialog = () => {
-  if (dialogRef.value && !dialogRef.value.open) {
-    dialogRef.value.showModal();
-  }
-};
-
-/**
- * Funktion: closeDialog
- * - Använder .close() för att stänga dialogen.
- * - Skickar en eventuppdatering till föräldern för att ändra `isOpen`.
- */
-const closeDialog = () => {
-  if (dialogRef.value && dialogRef.value.open) {
-    dialogRef.value.close();
-    emit("update:isOpen", false); // Uppdaterar förälderns boolean
-  }
-};
-
-/**
- * Watch: övervakar props.isOpen
- * - Om `isOpen` ändras, öppnas eller stängs dialogen.
- */
-watch(
-  () => props.isOpen,
-  (newVal) => {
-    if (newVal) {
-      openDialog();
-    } else {
-      closeDialog();
-    }
-  }
-);
-
-/**
- * Livscykelhändelse: onMounted
- * - Lägger till en event-lyssnare för "cancel".
- * - Stäng dialogen om användaren trycker på Escape eller klickar utanför.
- */
-onMounted(() => {
-  if (dialogRef.value) {
-    dialogRef.value.addEventListener("cancel", () => {
-      emit("update:isOpen", false); // Informera föräldern om att dialogen stängs
-    });
-  }
-});
-
-</script> -->
-
 <script setup>
 import { ref, onMounted } from "vue";
 
 const props = defineProps(['activeProduct'])
+const emit = defineEmits(['close'])
 
 console.log("aktiv produkt är:", props.activeProduct)
 // denna konstanten håller referens till dialogrutan så jag nu kan toggla den med showModalfmetoderna som tillhör.
 const dialogRef = ref(null);
 // console.log(dialogRef.value)
 
+const closeModal = () => {
+  console.log("closemodal kör")
+  emit('close')
+}
+
 //när domen finns....
 onMounted(() => {
   console.log(dialogRef.value)
 
+  //öppnar modalen direkt
   dialogRef.value.showModal();
 
-  // dialogRef.value.addEventListener("cancel", () => {
-  //   emit("update:isOpen", false); // Informera föräldern om att dialogen stängs
-  // });
+
+
+  //lyssnar på native Stängning med escape
+  dialogRef.value.addEventListener("cancel", () => {
+    closeModal()
+    console.log("native stängning av modal med cancel")
+  });
 
 })
 
@@ -83,10 +37,24 @@ onMounted(() => {
 <template>
   <!-- Dialog-elementet som styrs av en boolean -->
   <dialog ref="dialogRef" class="product-dialog">
-    <h2>PRODUKTEN</h2>
-    <p>INFO</p>
+
+    <article>
+      <h1>{{ activeProduct.name }}</h1>
+      <p>{{ activeProduct.description }}</p>
+      toppings
+      <p>{{ activeProduct.toppings.join(", ") }}</p>
+    </article>
+
+    <br>
+    Saker att ha:
+    detaljerad produktinfo: <br>
+
+    ingreddienslista: <br>
+    Allergener: <br>
+
+    FIXA STÄNGFUNKTION heheheh escape funkar
     <!-- Stäng-knapp som anropar en funktion för att stänga dialogen -->
-    <button @click="closeDialog">Stäng</button>
+    <button @click="closeModal()">Stäng</button>
   </dialog>
 </template>
 
@@ -101,5 +69,7 @@ onMounted(() => {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 </style>
