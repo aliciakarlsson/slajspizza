@@ -1,6 +1,6 @@
 <script setup>
 import '../assets/main.css'
-import ProductInfoModal from './productInfoModal.vue';
+import ProductInfoModal from './productInfoModal.vue'
 import { ref } from 'vue'
 import { useOrder } from '../useOrder'
 const { order, addToOrder } = useOrder()
@@ -14,8 +14,7 @@ const props = defineProps({
 
 const products = ref(props.items)
 
-console.log("Produkterna i varje itterering", products)
-
+console.log('Produkterna i varje itterering', products)
 
 // State för modal
 const showProductInfo = ref(false)
@@ -25,34 +24,40 @@ const activeProductToShow = ref(null)
 
 // Funktion för att visa/dölja modal
 const handleToggleProductInfoModal = () => {
-  console.log("Modal togglas")
-  showProductInfo.value = !showProductInfo.value;
+  console.log('Modal togglas')
+  showProductInfo.value = !showProductInfo.value
 }
-
 </script>
 
 <template>
   <!-- visar modal -->
-  <ProductInfoModal @close="showProductInfo = false" v-if="showProductInfo" :activeProduct="activeProductToShow" />
+  <ProductInfoModal
+    @close="showProductInfo = false"
+    v-if="showProductInfo"
+    :activeProduct="activeProductToShow"
+  />
   <div class="category">
     <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
     <ul class="product-list">
       <li v-for="product in products" :key="product.id" class="product-item">
         <div class="product-details">
-          <h3 @click="activeProductToShow = product; handleToggleProductInfoModal()">{{ product.name }}</h3>
-          <br>modalstatus: {{ showProductInfo }}
+          <h3 @click="(activeProductToShow = product), handleToggleProductInfoModal()">
+            {{ product.name }}
+          </h3>
+          <!-- <br />modalstatus: {{ showProductInfo }} -->
           <p class="description">{{ product.description }}</p>
           <div class="price">
             <p>Price:</p>
             <p class="price-number">{{ product.price }}kr</p>
           </div>
           <div class="button">
-
             <button class="add-button" @click="addToOrder(product)">+</button>
-            <button class="button-info" @click="activeProductToShow = product; handleToggleProductInfoModal()">Mer
-              info</button>
-
-         
+            <button
+              class="add-button"
+              @click="(activeProductToShow = product), handleToggleProductInfoModal()"
+            >
+              Mer info
+            </button>
           </div>
         </div>
         <img class="product-image" :src="product.imgUrl" :alt="product.name" />
@@ -171,9 +176,13 @@ h2 {
   border-radius: 8px;
   object-fit: cover;
 }
+.button {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
 
 .add-button {
-  display: block;
   padding: 1rem;
   background-color: rgb(200, 60, 60);
   color: white;
