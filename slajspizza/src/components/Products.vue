@@ -1,7 +1,9 @@
 <script setup>
 import '../assets/main.css'
-
 import { ref } from 'vue'
+import { useOrder } from '../useOrder'
+const { order, addToOrder } = useOrder()
+
 const props = defineProps({
   items: {
     type: Array,
@@ -25,7 +27,7 @@ const products = ref(props.items)
             <p class="price-number">{{ product.price }}kr</p>
           </div>
           <div class="button">
-            <a href="https://www.slicepizza.com/" target="_blank">+</a>
+            <button class="add-button" @click="addToOrder(product)">+</button>
           </div>
         </div>
         <img class="product-image" :src="product.imgUrl" :alt="product.name" />
@@ -132,5 +134,21 @@ h2 {
   height: auto;
   border-radius: 8px;
   object-fit: cover;
+}
+
+.add-button {
+  display: block;
+  padding: 1rem;
+  background-color: rgb(200, 60, 60);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: rgb(150, 40, 40);
 }
 </style>
