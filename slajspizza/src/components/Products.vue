@@ -14,18 +14,26 @@ const props = defineProps({
 
 const products = ref(props.items)
 
-console.log('Produkterna i varje itterering', products)
-
 // State för modal
 const showProductInfo = ref(false)
 
 // hålla koll på klickad produkt:
 const activeProductToShow = ref(null)
 
-// Funktion för att visa/dölja modal
+// State to manage "Item Added" feedback
+const addedItem = ref(null)
+
 const handleToggleProductInfoModal = () => {
-  console.log('Modal togglas')
   showProductInfo.value = !showProductInfo.value
+}
+
+const handleAddToOrder = (product) => {
+  addToOrder(product)
+
+  addedItem.value = product.id
+  setTimeout(() => {
+    addedItem.value = null
+  }, 2000)
 }
 </script>
 
@@ -44,14 +52,15 @@ const handleToggleProductInfoModal = () => {
           <h3 @click="(activeProductToShow = product), handleToggleProductInfoModal()">
             {{ product.name }}
           </h3>
-          <!-- <br />modalstatus: {{ showProductInfo }} -->
           <p class="description">{{ product.description }}</p>
           <div class="price">
             <p>Price:</p>
             <p class="price-number">{{ product.price }}kr</p>
           </div>
           <div class="button">
-            <button class="add-button" @click="addToOrder(product)">+</button>
+            <button class="add-button" @click="handleAddToOrder(product)">
+              {{ addedItem === product.id ? 'Produkt Tillagd' : 'Lägg Till' }}
+            </button>
             <button
               class="add-button"
               @click="(activeProductToShow = product), handleToggleProductInfoModal()"
