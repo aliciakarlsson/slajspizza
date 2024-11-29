@@ -5,19 +5,14 @@ import { ref } from 'vue'
 const props = defineProps({
   items: {
     type: Array,
-    default: () => []
-  }
+    default: () => [],
+  },
 })
 
-
 const products = ref(props.items)
-console.log("Produkterna i varje itterering", products)
-
-
 </script>
 
 <template>
-
   <div class="category">
     <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
     <ul class="product-list">
@@ -55,8 +50,6 @@ console.log("Produkterna i varje itterering", products)
   border-radius: 0.5rem;
 }
 
-
-
 .sticky-title {
   position: sticky;
   top: 0;
@@ -68,7 +61,6 @@ console.log("Produkterna i varje itterering", products)
 }
 
 .category {
-
   font-family: 'Parkinsans';
   padding: 1rem;
 }
