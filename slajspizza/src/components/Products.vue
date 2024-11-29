@@ -1,5 +1,9 @@
 <script setup>
 import '../assets/main.css'
+import ProductInfoModal from './productInfoModal.vue';
+
+
+import productInfoModal from './productInfoModal.vue';
 
 import { ref } from 'vue'
 const props = defineProps({
@@ -25,6 +29,8 @@ const handleToggleProductInfoModal = () => {
 </script>
 
 <template>
+
+  <ProductInfoModal></ProductInfoModal>
 
   <div class="category">
     <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
