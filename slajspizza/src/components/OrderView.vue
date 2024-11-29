@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, onUpdated } from 'vue'
 import { useOrder } from '../useOrder'
 import '../assets/main.css'
 
@@ -15,12 +15,18 @@ const calculateTotal = () => {
   return order.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
 }
 
-// const newOrder = {
-//   orderNumber: nanoid(),
-//   date: new Date().toISOString(),
-//   items: order,
-// }
-// en påbörjad lösning för att spara i local storage
+const generateUniqueId = () => {
+  return 'id-' + Math.random().toString(36).substring(2, 9) + Date.now().toString(36)
+}
+
+const newOrder = {
+  orderNumber: generateUniqueId(),
+  date: new Date().toISOString(),
+  items: order.value,
+}
+onUpdated(() => {
+  localStorage.setItem('orderHistory', JSON.stringify(newOrder))
+})
 </script>
 
 <template>
