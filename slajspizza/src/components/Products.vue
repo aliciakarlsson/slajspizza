@@ -1,5 +1,6 @@
 <script setup>
 import '../assets/main.css'
+import ProductInfoModal from './productInfoModal.vue';
 import { ref } from 'vue'
 import { useOrder } from '../useOrder'
 const { order, addToOrder } = useOrder()
@@ -12,22 +13,46 @@ const props = defineProps({
 })
 
 const products = ref(props.items)
+
+console.log("Produkterna i varje itterering", products)
+
+
+// State för modal
+const showProductInfo = ref(false)
+
+// hålla koll på klickad produkt:
+const activeProductToShow = ref(null)
+
+// Funktion för att visa/dölja modal
+const handleToggleProductInfoModal = () => {
+  console.log("Modal togglas")
+  showProductInfo.value = !showProductInfo.value;
+}
+
 </script>
 
 <template>
+  <!-- visar modal -->
+  <ProductInfoModal @close="showProductInfo = false" v-if="showProductInfo" :activeProduct="activeProductToShow" />
   <div class="category">
     <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
     <ul class="product-list">
       <li v-for="product in products" :key="product.id" class="product-item">
         <div class="product-details">
-          <h3>{{ product.name }}</h3>
+          <h3 @click="activeProductToShow = product; handleToggleProductInfoModal()">{{ product.name }}</h3>
+          <br>modalstatus: {{ showProductInfo }}
           <p class="description">{{ product.description }}</p>
           <div class="price">
             <p>Price:</p>
             <p class="price-number">{{ product.price }}kr</p>
           </div>
           <div class="button">
+
             <button class="add-button" @click="addToOrder(product)">+</button>
+            <button class="button-info" @click="activeProductToShow = product; handleToggleProductInfoModal()">Mer
+              info</button>
+
+         
           </div>
         </div>
         <img class="product-image" :src="product.imgUrl" :alt="product.name" />
@@ -127,6 +152,17 @@ h2 {
   color: white;
   text-decoration: none;
   border-radius: 4px;
+}
+
+.button-info {
+  padding: 8px 20px;
+  background-color: #b03a2e;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  margin: 1rem;
+  height: 2.5rem;
 }
 
 .product-image {
