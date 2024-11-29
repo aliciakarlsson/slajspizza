@@ -41,13 +41,8 @@ const handleToggleProductInfoModal = () => {
     <ul class="product-list">
       <li v-for="product in products" :key="product.id" class="product-item">
         <div class="product-details">
-          <h3>{{ product.name }}</h3>
-
-          <button @click="activeProductToShow = product; handleToggleProductInfoModal()"> klicka här för attt
-            aktivera modal med klickad produkt</button>
+          <h3 @click="activeProductToShow = product; handleToggleProductInfoModal()">{{ product.name }}</h3>
           <br>modalstatus: {{ showProductInfo }}
-
-
           <p class="description">{{ product.description }}</p>
           <div class="price">
             <p>Price:</p>
@@ -55,6 +50,8 @@ const handleToggleProductInfoModal = () => {
           </div>
           <div class="button">
             <a href="https://www.slicepizza.com/" target="_blank">+</a>
+            <button class="button-info" @click="activeProductToShow = product; handleToggleProductInfoModal()">Mer
+              info</button>
           </div>
         </div>
         <img class="product-image" :src="product.imgUrl" :alt="product.name" />
@@ -63,7 +60,7 @@ const handleToggleProductInfoModal = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .menu {
   width: 80%;
   margin: 0 auto;
@@ -157,6 +154,17 @@ h2 {
   color: white;
   text-decoration: none;
   border-radius: 4px;
+}
+
+.button-info {
+  padding: 8px 20px;
+  background-color: #b03a2e;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  margin: 1rem;
+  height: 2.5rem;
 }
 
 .product-image {

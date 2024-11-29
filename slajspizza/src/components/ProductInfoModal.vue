@@ -39,37 +39,70 @@ onMounted(() => {
   <dialog ref="dialogRef" class="product-dialog">
 
     <article>
-      <h1>{{ activeProduct.name }}</h1>
-      <p>{{ activeProduct.description }}</p>
-      toppings
-      <p>{{ activeProduct.toppings.join(", ") }}</p>
+      <div class="modal-header">
+        <h1>{{ activeProduct.id }}. {{ activeProduct.name }}</h1>
+        <!-- Stäng-knapp som anropar en funktion för att stänga dialogen -->
+        <button class="cross" @click=" closeModal()">x</button>
+      </div>
+
+      <div class="modal-body">
+        <p><b>Beskrivning:</b> {{ activeProduct.description }}</p>
+        <p><b>Toppings:</b> {{ activeProduct.toppings.join(", ") }}</p>
+      </div>
+
+      <mark>ALLERGENER FINNS! OBS VAR UPPMÄRKSAM PÅ VAD SOM DÖDAR DIG</mark>
+
     </article>
 
-    <br>
+    <!-- <br>
     Saker att ha:
     detaljerad produktinfo: <br>
 
     ingreddienslista: <br>
-    Allergener: <br>
+    Allergener: <br> -->
 
-    FIXA STÄNGFUNKTION heheheh escape funkar
-    <!-- Stäng-knapp som anropar en funktion för att stänga dialogen -->
-    <button @click="closeModal()">Stäng</button>
+
+
   </dialog>
 </template>
 
 <style scoped>
+* {
+  font-family: Parkinsans;
+}
+
 .product-dialog {
   z-index: 999999999;
   width: 90%;
-  max-width: 400px;
+  max-width: 800px;
   border: none;
-  border-radius: 8px;
+  border-radius: 1rem;
   background: #f9f9f9;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.modal-header {
+  /* background-color: green; */
+  display: flex;
+  justify-content: space-between;
+  margin-left: 1rem;
+  align-items: center;
+}
+
+.cross {
+  font-size: 2rem;
+  background: none;
+  color: #b03a2e;
+  border: none;
+
+  padding: 0rem 1rem;
+
+  &:hover {
+    background-color: #b03b2e4d
+  }
 }
 </style>
