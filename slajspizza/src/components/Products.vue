@@ -3,7 +3,7 @@ import '../assets/main.css'
 import ProductInfoModal from './productInfoModal.vue';
 
 
-import productInfoModal from './productInfoModal.vue';
+
 
 import { ref } from 'vue'
 const props = defineProps({
@@ -20,6 +20,9 @@ console.log("Produkterna i varje itterering", products)
 // State för modal
 const showProductInfo = ref(false)
 
+// hålla koll på klickad produkt:
+const activeProductToShow = ref(null)
+
 // Funktion för att visa/dölja modal
 const handleToggleProductInfoModal = () => {
   console.log("Modal togglas")
@@ -30,7 +33,8 @@ const handleToggleProductInfoModal = () => {
 
 <template>
 
-  <ProductInfoModal></ProductInfoModal>
+  <!-- visar modal -->
+  <ProductInfoModal v-if="showProductInfo" :activeProduct="activeProductToShow" />
 
   <div class="category">
     <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
@@ -39,8 +43,10 @@ const handleToggleProductInfoModal = () => {
         <div class="product-details">
           <h3>{{ product.name }}</h3>
 
-          <button @click="handleToggleProductInfoModal"> klicka här för attt aktivera modal</button>
+          <button @click="activeProductToShow = product; handleToggleProductInfoModal()"> klicka här för attt
+            aktivera modal med klickad produkt</button>
           <br>modalstatus: {{ showProductInfo }}
+
 
           <p class="description">{{ product.description }}</p>
           <div class="price">

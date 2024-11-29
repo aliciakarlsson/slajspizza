@@ -58,7 +58,9 @@ onMounted(() => {
 <script setup>
 import { ref, onMounted } from "vue";
 
+const props = defineProps(['activeProduct'])
 
+console.log("aktiv produkt är:", props.activeProduct)
 // denna konstanten håller referens till dialogrutan så jag nu kan toggla den med showModalfmetoderna som tillhör.
 const dialogRef = ref(null);
 // console.log(dialogRef.value)
@@ -67,11 +69,11 @@ const dialogRef = ref(null);
 onMounted(() => {
   console.log(dialogRef.value)
 
-
   dialogRef.value.showModal();
-  // console.log("dialogreffen: ", dialogRef.value.open)
 
-  // dialogRef.value =
+  // dialogRef.value.addEventListener("cancel", () => {
+  //   emit("update:isOpen", false); // Informera föräldern om att dialogen stängs
+  // });
 
 })
 
@@ -81,8 +83,8 @@ onMounted(() => {
 <template>
   <!-- Dialog-elementet som styrs av en boolean -->
   <dialog ref="dialogRef" class="product-dialog">
-    <h2>Produktvy</h2>
-    <p>Här kan du lägga till produktinformation eller annan viktig text.</p>
+    <h2>PRODUKTEN</h2>
+    <p>INFO</p>
     <!-- Stäng-knapp som anropar en funktion för att stänga dialogen -->
     <button @click="closeDialog">Stäng</button>
   </dialog>
