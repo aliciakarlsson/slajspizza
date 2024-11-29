@@ -1,19 +1,19 @@
 <script setup>
 import '../assets/main.css'
 import ProductInfoModal from './productInfoModal.vue';
-
-
-
-
 import { ref } from 'vue'
+import { useOrder } from '../useOrder'
+const { order, addToOrder } = useOrder()
+
 const props = defineProps({
   items: {
     type: Array,
-    default: () => []
-  }
+    default: () => [],
+  },
 })
 
 const products = ref(props.items)
+
 console.log("Produkterna i varje itterering", products)
 
 
@@ -32,10 +32,8 @@ const handleToggleProductInfoModal = () => {
 </script>
 
 <template>
-
   <!-- visar modal -->
   <ProductInfoModal @close="showProductInfo = false" v-if="showProductInfo" :activeProduct="activeProductToShow" />
-
   <div class="category">
     <h2 class="title sticky-title">{{ products[0].type.toUpperCase() }}</h2>
     <ul class="product-list">
@@ -49,9 +47,12 @@ const handleToggleProductInfoModal = () => {
             <p class="price-number">{{ product.price }}kr</p>
           </div>
           <div class="button">
-            <a href="https://www.slicepizza.com/" target="_blank">+</a>
+
+            <button class="add-button" @click="addToOrder(product)">+</button>
             <button class="button-info" @click="activeProductToShow = product; handleToggleProductInfoModal()">Mer
               info</button>
+
+         
           </div>
         </div>
         <img class="product-image" :src="product.imgUrl" :alt="product.name" />
@@ -76,8 +77,6 @@ const handleToggleProductInfoModal = () => {
   border-radius: 0.5rem;
 }
 
-
-
 .sticky-title {
   position: sticky;
   top: 0;
@@ -89,7 +88,6 @@ const handleToggleProductInfoModal = () => {
 }
 
 .category {
-
   font-family: 'Parkinsans';
   padding: 1rem;
 }
@@ -172,5 +170,21 @@ h2 {
   height: auto;
   border-radius: 8px;
   object-fit: cover;
+}
+
+.add-button {
+  display: block;
+  padding: 1rem;
+  background-color: rgb(200, 60, 60);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: rgb(150, 40, 40);
 }
 </style>
